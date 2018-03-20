@@ -1,12 +1,12 @@
 const commando = require('discord.js-commando');
 const Task = require('../../models/tasks');
 
-class TodoCommand extends commando.Command {
+class TodoAddCommand extends commando.Command {
   constructor(client) {
     super(client, {
-      name: 'todo',
-      group: 'random',
-      memberName: 'todo',
+      name: 'todo-add',
+      group: 'task',
+      memberName: 'todo-add',
       description: 'Bot for storage todo list',
       examples: ['todo Create new migration!'],
       guildOnly: true,
@@ -23,26 +23,23 @@ class TodoCommand extends commando.Command {
 
         },
         {
-          key: 'age',
-          prompt: 'Say your age ?',
+          key: 'priority',
+          prompt: 'Say task priority ?',
           type: 'integer'
-
         }
       ]
     });
   }
 
   async run(message, args) {
-    console.log('message => ', Object.keys(message));
-    console.log('TaskTitle => ', args);
-    console.log('message content => ', message.content);
-    args.user.send(args.title + ' with age ' + args.age);
+    args.user.send(args.title + ' with age ' + args.priority);
     try {
 
 
       await new Task({
         title: args.title,
-        createdBy: args.user.id
+        createdBy: args.user.id,
+        priority: args.priority
       }).save();
 
     } catch (error) {
@@ -50,4 +47,4 @@ class TodoCommand extends commando.Command {
     }
   }
 } 
-module.exports = TodoCommand;
+module.exports = TodoAddCommand;

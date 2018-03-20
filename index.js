@@ -3,6 +3,7 @@ const mongo = require('./mongo');
 const bot = new commando.Client();
 
 bot.registry.registerGroup('random','Random');
+bot.registry.registerGroup('task','Task');
 bot.registry.registerDefaults();
 bot.registry.registerCommandsIn(__dirname + '/commands');
 
